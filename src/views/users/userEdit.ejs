@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <%- include('../partials/head.ejs') %> 
+
+<body>
+
+   <%- include('../partials/header.ejs') %> 
+
+    <main class="userMain">
+        <div class="datos">
+            <div class="loginDatos">
+                <div class="inReg"> 
+                    <h4>  Inicio /  <strong> Editar perfil  </strong></h4>
+                </div>
+                <div class="loginCon">
+                    <h2>Editar perfil</h2>
+                </div>
+                <div class="register">
+                    <form action="/users/edit?_method=put" method="POST" class="registerForm" enctype="multipart/form-data">
+                        <div class="avatar">
+                            <label for="avatar"> Imagen de perfil </label>
+                            <input type="file" name="avatar" id="avatar" placeholder="Imagen de perfil" multiple >
+                            <% if (locals.errors && errors.avatar) { %>
+                                <p class="errorStyle"> <%= errors.avatar.msg %> </p>
+                            <% } %>
+                        </div>
+                        <div>
+                            <input type="text" name="firstName" id="firstName" 
+                            placeholder="Nombre" minLength="2" 
+                            value="<%= locals.oldData ? oldData.firstName : locals.userLogged.firstName %>">
+                            <% if (locals.errors && errors.firstName) { %>
+                                <p class="errorStyle"> <%= errors.firstName.msg %> </p>
+                            <% } %>
+                            <!-- <div class="feedback"></div> -->
+                        </div>
+                        <div>
+                            <input type="text" name="lastName" id="lastName" 
+                            placeholder="Apellido" minLength="2" 
+                            value="<%= locals.oldData ? oldData.lastName : locals.userLogged.lastName %>">
+                            <% if (locals.errors && errors.lastName) { %>
+                                <p class="errorStyle"> <%= errors.lastName.msg %> </p>
+                            <% } %>
+                            <!-- <div class="feedback"></div> -->
+                        </div>
+                        <div>
+                            <input type="text" name="userName" id="userName" 
+                            placeholder="Nombre de usuario"  
+                            value="<%= locals.oldData ? oldData.userName : locals.userLogged.userName %>">
+                            <% if (locals.errors && errors.userName) { %>
+                                <p class="errorStyle"> <%= errors.userName.msg %> </p>
+                            <% } %>
+                            <!-- <div class="feedback"></div> -->
+                        </div>
+                        <div>
+                            <input type="email" name="email" id="email" 
+                            placeholder="Correo electrónico" 
+                            value="<%= locals.oldData ? oldData.email : locals.userLogged.email %>">
+                            <% if (locals.errors && errors.email) { %>
+                                <p class="errorStyle"> <%= errors.email.msg %> </p>
+                            <% } %>
+                            <!-- <div class="feedback"></div> -->
+                        </div>
+                
+
+                        <%- include('../partials/reCaptcha.ejs') %> 
+                        
+                        <button class="saveChanges"> Guardar cambios</button>
+                    </form>   
+                </div>  
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %> 
+
+    <script src="/js/header.js"> </script>
+
+</body>
+</html>

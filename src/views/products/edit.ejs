@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <%- include('../partials/head.ejs') %> 
+
+<body>
+
+    <%- include('../partials/headerAdmin.ejs', {product}) %> 
+
+   <main class="editMain">
+      <h2>Editar producto</h2>
+      <form class="editForm" action="<%=product.id %>?_method=put" method="POST" enctype="multipart/form-data">
+         <div class="editInputContainer">
+            <label for="name"> Nombre </label>
+            <input type="text" name="name" id="name" value="<%= locals.oldData ? oldData.name : product.name %>">
+            <div id="nameError" class="errorMessage"></div>
+            <% if (locals.errors && errors.name) { %>
+               <p class="errorStyle"> <%= errors.name.msg %> </p>
+            <% } %>
+            <label for="description">Descripción</label>
+            <textarea name="description" id="description" cols="30" rows="10"> <%= locals.oldData ? oldData.description : product.description%> </textarea>
+            <div id="descriptionError" class="errorMessage"></div
+            <% if (locals.errors && errors.description) { %>
+               <p class="errorStyle"> <%= errors.description.msg %> </p>
+            <% } %>
+            <div class="editImages">
+               <label for="image"> Imagen </label>
+               <input type="file" name="image" id="image" multiple>
+               <div id="imageError" class="errorMessage"></div>
+               <% if (locals.errors && errors.image) { %>
+                  <p class="errorStyle"> <%= errors.image.msg %> </p>
+               <% } %>
+            </div>
+            <label for="type">Tipo de producto</label>
+            <select name="type">
+               <% if (locals.oldData && oldData.type) { %>
+                  <% types.forEach(type => { %>
+                     <option value="<%= type.id %> " <%= oldData.type == type.id ? "selected" : "" %>> <%= type.name %>  </option>
+                  <% }) %>
+                  <!-- <option value="planta" <%#= oldData.type == "planta" ? "selected" : "" %>> Planta </option>
+                  <option value="maceta" <%#= oldData.type == "maceta" ? "selected" : "" %>> Maceta </option>
+                  <option value="cuidados" <%#= oldData.type == "cuidados" ? "selected" : "" %>> Tips y cuidados </option> -->
+               <% } else { %>
+                  <% types.forEach(type => { %>
+                     <option value="<%= type.id %> " <%= product.Type.id == type.id ? "selected" : "" %>> <%= type.name %>  </option>
+                  <% }) %>
+                  <!-- <option value="maceta" <%#= product.type == "maceta" ? "selected" : "" %>> Maceta </option>
+                  <option value="cuidados" <%#= product.type == "cuidados" ? "selected" : "" %>> Tips y cuidados </option> -->
+               <% } %>
+            </select>
+            <label>Tamaño</label>
+            <select name="size">
+               <% if (locals.oldData && oldData.size) { %>
+                  <% sizes.forEach(size => { %>
+                     <option value="<%= size.id %> " <%= oldData.size == size.id ? "selected" : "" %>> <%= size.name %>  </option>
+                  <% }) %>
+                  <!-- <option value="small" <%#= oldData.size == "small" ? "selected" : "" %>> S (Small) </option>
+                  <option value="medium" <%#= oldData.size == "medium" ? "selected" : "" %>> M (Medium) </option>
+                  <option value="large" <%#= oldData.size == "large" ? "selected" : "" %>> L (Large) </option>
+                  <option value="extra-large" <%#= oldData.size == "extra-large" ? "selected" : "" %>> XL (Extra Large) </option> -->
+               <% } else { %>
+                  <% sizes.forEach(size => { %>
+                     <option value="<%= size.id %> " <%= product.Size.id == size.id ? "selected" : "" %>> <%= size.name %> </option>
+                  <% }) %>
+                  <!-- <option value="small" <%#= product.size == "small" ? "selected" : "" %>> S (Small) </option>
+                  <option value="medium" <%#= product.size == "medium" ? "selected" : "" %>> M (Medium) </option>
+                  <option value="large" <%#= product.size == "large" ? "selected" : "" %>> L (Large) </option>
+                  <option value="extra-large" <%#= product.size == "extra-large" ? "selected" : "" %>> XL (Extra Large) </option> -->
+               <% } %>
+            </select>
+            <label for="price">Precio</label>
+            <input type="number" name="price" id="price" value="<%= product.price%>">
+            <% if (locals.errors && errors.price) { %>
+               <p class="errorStyle"> <%= errors.price.msg %> </p>
+            <% } %>
+            <div class="editBenefits">
+               <label for="fees">Cuotas</label>
+               <select name="fees" id="fees">
+                  <option value=""> Elegí </option>
+                  <% if (locals.oldData && oldData.fees) { %>
+                     <% fees.forEach(fee => { %>
+                        <option value="<%= fee.id %> " <%= oldData.fees == fee.id ? "selected" : "" %>> <%= fee.number %> cuotas  </option>
+                     <% }) %>
+                  <% } else { %>
+                     <% fees.forEach(fee => { %>
+                        <option value="<%= fee.id %> " <%= product.Fee.id == fee.id ? "selected" : "" %>> <%= fee.number %> cuotas</option>
+                     <% }) %>
+                  <% } %>
+               </select>
+               <!-- <label for="fees">Cuotas</label>
+               <input type="number" name="fees" id="fees" value="<%#= product.fees%>"> -->
+               <label>Categoría</label>
+               <select name="category" >
+                  <% if (locals.oldData && oldData.category) { %>
+                     <% categories.forEach(category => { %>
+                        <option value="<%= category.id %> " <%= oldData.category == category.id ? "selected" : "" %>> <%= category.name %>  </option>
+                     <% }) %>
+                     <!-- <option value="visited" <%#= oldData.category == "visited" ? "selected" : "" %>> Últimos visitados </option>
+                     <option value="inSale" <%#= oldData.category == "inSale" ? "selected" : "" %>> En oferta </option>
+                     <option value="featured" <%#= oldData.category == "featured" ? "selected" : "" %>> Elegidos del Mes </option>
+                     <option value="general" <%#= oldData.category == "general" ? "selected" : "" %>> Productos </option> -->
+                  <% } else { %>
+                     <% categories.forEach(category => { %>
+                        <option value="<%= category.id %> " <%= product.Category.id == category.id ? "selected" : "" %>> <%= category.name %> </option>
+                     <% }) %>
+                     <!-- <option value="visited" <%#= product.category == "visited" ? "selected" : "" %>> Últimos visitados </option>
+                     <option value="inSale" <%#= product.category == "inSale" ? "selected" : "" %>> En oferta </option>
+                     <option value="featured" <%#= product.category == "featured" ? "selected" : "" %>> Elegidos del Mes </option>
+                     <option value="general" <%#= product.category == "general" ? "selected" : "" %>> Productos </option> -->
+                  <% } %>
+               </select>
+            </div>
+            </div>
+         <button type="submit"> Guardar </button>
+      </form>
+   </main>
+
+   <%- include('../partials/footer.ejs') %> 
+   
+   <script src="/js/header.js"> </script>
+   <script src="/js/editValidator.js"> </script>
+</body>
+</html>

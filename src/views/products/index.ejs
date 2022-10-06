@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+   <%- include('../partials/head.ejs') %> 
+<body>
+   <%- include('../partials/header.ejs') %> 
+
+    <main>
+
+        <%- include('../partials/banners.ejs') %> 
+
+        <%- include('../partials/benefits.ejs') %> 
+
+        <section class="productsView">
+            <h2>Nuestros elegidos del mes</h2>
+            <div class="products">
+                <% products.forEach(product => { 
+                    if (product.Category.name==="featured") { %>
+                        <%- include('../partials/article.ejs',{product}) %> 
+                    <% }
+                }) %>
+            </div>
+            <div class="viewMore">
+                <a href="/products/allProducts"><p class="more">Ver más</p></a>
+            </div>
+        </section>
+
+    </main>
+
+    <%- include('../partials/footer.ejs') %> 
+
+    <script src="/js/header.js"></script>
+
+</body>
+
+</html>

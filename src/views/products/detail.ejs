@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('../partials/head.ejs') %> 
+
+<body>
+
+   <%- include('../partials/header.ejs') %> 
+       
+    <main class="productDetailMain">
+
+        <%- include('../partials/articleDetail.ejs') %>    
+        
+        <section class="visitedProducts">
+            <h2>Últimos visitados</h2>
+            <div class="products">
+                <% products.forEach(product => { %>
+                    <% if (product.Category.name==="visited") { %>
+                        <%- include('../partials/article.ejs',{product}) %> 
+                    <% } %>
+                <% }) %>
+            </div>
+        </section>
+
+        <%- include('../partials/benefits.ejs') %> 
+
+    </main>
+
+    <%- include('../partials/footer.ejs') %> 
+
+    <script src="/js/header.js"> </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+   <%- include('../partials/head.ejs') %> 
+<body>
+   <%- include('../partials/header.ejs') %> 
+
+    <main>
+        
+        <section class="productsView">
+            <div class="titleAndFilter">
+                <h2 class="titleAllProducts">Nuestros productos</h2>
+                <form class="filterForm" action="/products/filter" method="GET">
+                    <select class="input" name="keyword1" id="">
+                        <option value=""> Filtrar </option>
+                        <% type.forEach(type => { %>
+                        <option value="<%= type.id %>"> <%= type.name %>  </option>
+                        <% }) %>
+                    </select>
+                    <select class="input" name="keyword2" id="">                  
+                        <option value=""> Ordenar por: </option>
+                        <option value="lowest" > Precio más bajo </option>
+                        <option value="highest" > Precio más alto </option>
+                        <option value="2"> Ofertas </option>
+                        <option value="3"> Destacados </option>
+                    </select>
+                    <button class="submit"><span class="material-symbols-outlined" id="filter-alt">filter_alt</span></button>
+                </form>
+            </div>
+            <div class="products">
+                
+                <% products.forEach(product => { %>
+                    <%- include('../partials/article.ejs',{product}) %> 
+                <% }) %>
+            </div>
+        </section>
+
+    </main>
+
+    <%- include('../partials/footer.ejs') %> 
+    <script src="/js/header.js"> </script>
+</body>
+
+</html>

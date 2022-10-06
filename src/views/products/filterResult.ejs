@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+   <%- include('../partials/head.ejs') %> 
+<body>
+   <%- include('../partials/header.ejs') %> 
+
+    <main>
+
+        <section class="productsView">
+            <div class="titleAndFilter">
+                <h2 class="titleAllProducts">Nuestros productos</h2>
+                <form class="filterForm" action="/products/filter" method="GET">
+                    <select class="input" name="keyword1" id="">
+                        <option value=""> Filtrar </option>
+                        <% type.forEach(type => { %>
+                        <option value="<%= type.id %>" <%= keyword1 != "" && keyword1 == type.id ? "selected" : ""  %> > <%= type.name %>  </option>
+                        <% }) %>
+                    </select>
+                    <select class="input" name="keyword2" id="">                  
+                        <option value=""> Ordenar por: </option>
+                        <option value="lowest"  <%= keyword2 != "" && keyword2 == "lowest" ? "selected" : "" %>   > Precio más bajo </option>
+                        <option value="highest" <%= keyword2 != "" && keyword2 == "highest" ? "selected" : "" %> > Precio más alto </option>
+                        <option value="2" <%= keyword2 != "" && keyword2 == "2" ? "selected" : "" %>> Ofertas </option>
+                        <option value="3" <%= keyword2 != "" && keyword2 == "3" ? "selected" : "" %>> Destacados </option>
+                    </select>
+                    <button class="submit"><span class="material-symbols-outlined" id="filter-alt">filter_alt</span></button>
+                </form>
+            </div>
+            <div class="products">
+                <% if (locals.products && products.length > 0) { %>
+                    <% products.forEach(product => { %>
+                        <%- include('../partials/article.ejs',{product}) %> 
+                    <% }) %>
+                <% } else { %> 
+                    <h2> No se encontraron resultados </h2>
+                <% }%>
+            </div>
+            <div class="searchResultButton">
+                <a href="/products/allProducts"> <button  > Volver </button> </a>
+            </div>
+        </section>
+
+    </main>
+
+    <%- include('../partials/footer.ejs') %> 
+
+    <script src="/js/header.js"></script>
+</body>
+
+</html>

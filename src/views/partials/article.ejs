@@ -1,0 +1,22 @@
+<article>
+    <a href="/products/detail/<%- product.id %>"> 
+        <figure>
+            <img src="/images/<%= product.Images[0].name %>" alt="image Planta" class="productImage">
+            <img src="/images/<%= product.Images[1].name %>" alt="image Planta" class="productImageI">
+            <a href="#"><span class="material-symbols-outlined" id="shopProduct">shopping_bag</span></a>
+        </figure>
+        <div class="description"> 
+            <h3 class="name"><%= product.name %></h3>
+            <p class="price">$ <%= product.price %></p>
+            <% if (product.Fee.number > 1) { %>
+                <p class="fee">
+                    <%= product.Fee.number %> cuotas sin interés de <span class="feeDivision">$<%= (product.price/product.Fee.number).toFixed() %></span> 
+                    
+                </p>
+            <% } else { %>
+                <p class="fee"> Pago al contado</p>
+            <% } %>
+        </div>
+    </a>
+    <script src="/js/articleImage.js"></script>
+</article>
