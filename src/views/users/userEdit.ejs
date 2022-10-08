@@ -19,6 +19,7 @@
                 <div class="register">
                     <form action="/users/edit?_method=put" method="POST" class="registerForm" enctype="multipart/form-data">
                         <div class="avatar">
+                            <img src="/images/users/<%= locals.userLogged.avatar%>" class="avatarPreview" id="avatarPreview">
                             <label for="avatar"> Imagen de perfil </label>
                             <input type="file" name="avatar" id="avatar" placeholder="Imagen de perfil" multiple >
                             <% if (locals.errors && errors.avatar) { %>
@@ -75,6 +76,7 @@
     <%- include('../partials/footer.ejs') %> 
 
     <script src="/js/header.js"> </script>
+    <script src="/js/avatarPreview.js"></script>
 
 </body>
 </html>
