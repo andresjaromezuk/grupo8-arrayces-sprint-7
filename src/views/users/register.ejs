@@ -22,6 +22,7 @@
                 <div class="register">
                     <form action="/users/register" method="POST" class="registerForm" enctype="multipart/form-data">
                         <div class="avatar">
+                            <img src="/images/users/avatar-default-image.jpg" class="avatarPreview" id="avatarPreview">
                             <label for="avatar"> Imagen de perfil </label>
                             <input type="file" name="avatar" id="avatar" placeholder="Imagen de perfil" multiple >
                             <% if (locals.errors && errors.avatar) { %>
@@ -94,6 +95,7 @@
 
     <script src="/js/header.js"> </script>
     <script src="/js/registerValidator.js"></script>
+    <script src="/js/avatarPreview.js"></script>
 
 </body>
 </html>

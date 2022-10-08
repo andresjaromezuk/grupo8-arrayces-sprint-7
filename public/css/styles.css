@@ -1198,6 +1198,11 @@ main.userMain{
     margin-bottom: 15px;
 }
 
+.avatarPreview{
+    border-radius: 50%;
+    width: 50%
+}
+
 
 /* --------------LOGIN-------------- */
 
@@ -1978,6 +1983,10 @@ main.userProfile{
         width: 20%;
     }
 
+    .avatarPreview{
+        width: 40%;
+    }
+
 
     /* --------------LOGIN-------------- */
 
@@ -2411,6 +2420,10 @@ main.userProfile{
 
     .avatar input{
         margin-bottom: 30px;
+    }
+
+    .avatarPreview{
+        width: 20%;
     }
 
     /* --------------LOGIN-------------- */
