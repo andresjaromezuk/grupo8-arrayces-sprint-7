@@ -172,7 +172,7 @@ window.addEventListener('load', function(){
             errors.password = feedback
         } else { 
             password.classList.remove('isInvalid')
-            passwordclassList.add('isValid')
+            password.classList.add('isValid')
             delete errors.password 
         }
     
@@ -197,7 +197,7 @@ window.addEventListener('load', function(){
             errors.confirmPassword = feedback
         } else { 
             confirmPassword.classList.remove('isInvalid')
-            classList.add('isValid')
+            confirmPassword.classList.add('isValid')
             delete errors.confirmPassword 
         }
     

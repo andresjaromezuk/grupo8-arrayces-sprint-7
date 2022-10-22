@@ -12,7 +12,7 @@ window.addEventListener('load', function(){
    
 
     /* Expresiones regulares */
-    const RegExpImage = /(.jpg|.jpeg|.png|.gif)$/i
+    const RegExpImage = /(.jpg|.jpeg|.png)$/
 
     let errors = {}
     
@@ -66,20 +66,33 @@ window.addEventListener('load', function(){
         descriptionError.innerText = feedback
     }
 
-    let imageValidation = () => {
+    let imageValidation = (e) => {
 
         feedback = ""
     
         const imageError = document.querySelector('#imageError')
         
-        let validation = image.value.match(RegExpImage)
-
         if(image.value == "" ){
             feedback = "Debes cargar imágenes del producto"
-        } else if(validation== null ? !null : validation.length < 2){
-            feedback = "Los archivos requeridos son jpg, jpeg y png"
         } 
-    
+
+        if(image.value != "" ){
+
+            const files = e.target.files
+
+            if (Object.keys(files).length != 2){
+                feedback = "Debes ingresar dos imágenes"
+            }
+
+            for (let i = 0; i < files.length; i++){
+                    let img = files[i].name
+                    if(img.match(RegExpImage) == null){
+                        feedback = "Los archivos requeridos son jpg, jpeg y png"
+                    }
+            }
+            
+        }
+
         
         if(feedback){
             image.classList.remove('isValid')
@@ -87,7 +100,7 @@ window.addEventListener('load', function(){
             errors.image = feedback
         } else { 
             image.classList.remove('isInvalid')
-            image.classList.add('isInvalid')
+            image.classList.add('isValid')
             delete errors.image 
         }
     

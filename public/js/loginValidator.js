@@ -1,6 +1,7 @@
 window.addEventListener('load', function(){
 
-    /* Requerimos el modelo User */ 
+    /* Expresiones regulares */
+    const RegExpEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i 
 
 
     /* Capturamos el form */
