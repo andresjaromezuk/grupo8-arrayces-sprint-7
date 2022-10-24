@@ -288,21 +288,58 @@ section.bannerPublicitario{
     width: 100%;
     margin-top: 61px;
     margin-bottom: 5%;
+    overflow: hidden;
+    position: relative;
+}
+
+.bannerContainer{
+    width: 300%;
+    display: flex;
+    margin-left: -100%;
+}
+
+.mobileBanner{
+    width: 100%;
 }
 
 section.bannerPublicitario figure img{
     width: 100%;
+    object-fit: cover;
 }
 
 figure.desktopBanner{
     display: none;
 }
 
-/* banner categorias */
+.sliderButton{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.5);
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.sliderButton:hover{
+    background-color: rgba(255, 255, 255);
+}
+
+.sliderButtonRight{
+    right: 10px;
+}
+
+.sliderButtonLeft{
+    left: 10px;
+}
+
 section.categories{
     display: none;
 }
-
 
 /* section benefits */
 section.benefits{
