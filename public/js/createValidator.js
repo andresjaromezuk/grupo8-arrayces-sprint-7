@@ -78,8 +78,8 @@ window.addEventListener('load', function(){
 
         if(image.value != "" ){
 
-            const files = e.target.files
-
+            const files =  image.files
+            
             if (Object.keys(files).length != 2){
                 feedback = "Debes ingresar dos imágenes"
             }
