@@ -319,7 +319,6 @@ const productController = {
 
         let {name, description, type, size, price, fees, category} = req.body
 
-
         let objAux={
             name: name,
             description: description,
@@ -345,14 +344,22 @@ const productController = {
             let imagesProducts = [];
 
             files.forEach(image => {
-                imagesProducts.push({name: image.filename, productId: productToEdit.id})
+                imagesProducts.push({name: image.filename, productId: id})
             })
 
-            if(imagesProducts.length > 2){
-            let images = await Image.bulkCreate(imagesProducts)
-            } else {
+            let imagesToDestroy = await Image.destroy({
+                where: {
+                    productId: id
+                }
+            })
+
+            let images = await Image.bulkCreate(imagesProducts, {
+                where: {
+                    productId: id
+                }})
+           
                 return res.redirect('/')
-            }
+            
         } catch (error) {
              res.json(error.msg)
         }

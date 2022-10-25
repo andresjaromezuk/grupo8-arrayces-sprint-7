@@ -69,12 +69,27 @@ window.addEventListener('load', function(){
     
         const imageError = document.querySelector('#imageError')
         
-        let validation = image.value.match(RegExpImage)
-
-        if(validation == null ? !null : validation.length < 2){
-            feedback = "Los archivos requeridos son jpg, jpeg y png"
+        if(image.value == "" ){
+            feedback = "Debes cargar imágenes del producto"
         } 
-    
+
+        if(image.value != "" ){
+
+            const files =  image.files
+            
+            if (Object.keys(files).length != 2){
+                feedback = "Debes ingresar dos imágenes"
+            }
+
+            for (let i = 0; i < files.length; i++){
+                    let img = files[i].name
+                    if(img.match(RegExpImage) == null){
+                        feedback = "Los archivos requeridos son jpg, jpeg y png"
+                    }
+            }
+            
+        }
+
         
         if(feedback){
             image.classList.remove('isValid')
@@ -82,7 +97,7 @@ window.addEventListener('load', function(){
             errors.image = feedback
         } else { 
             image.classList.remove('isInvalid')
-            image.classList.add('isInvalid')
+            image.classList.add('isValid')
             delete errors.image 
         }
     
