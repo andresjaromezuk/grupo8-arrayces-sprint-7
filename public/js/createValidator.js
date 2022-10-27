@@ -66,7 +66,7 @@ window.addEventListener('load', function(){
         descriptionError.innerText = feedback
     }
 
-    let imageValidation = (e) => {
+    let imageValidation = () => {
 
         feedback = ""
     
