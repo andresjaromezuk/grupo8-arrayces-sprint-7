@@ -156,7 +156,7 @@ const productApiController = {
                 products.forEach(product =>{
                      data.push({
                         product,
-                        url: `${process.env.HOST}/api/products/${product.id}`
+                        url: `${process.env.HOST}/products/detail/${product.id}`
                     })
                 })
     
