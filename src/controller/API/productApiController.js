@@ -82,10 +82,7 @@ const productApiController = {
             let product = products[0]
 
             console.log(product)
-            /* let imgs = product.Images.forEach(image =>{
-                `http://localhost:3000/images/${image.name}`
-            })
-            console.log(imgs) */
+        
             data = {
                 product,
                 imgUrl : [`${process.env.HOST}/images/${product.Images[0].name}`, `http://localhost:3000/images/${product.Images[1].name}`],
@@ -120,7 +117,8 @@ const productApiController = {
             products.rows.forEach(product =>{
                  data.push({
                     product,
-                    url: `${process.env.HOST}/api/products/${product.id}`
+                    imgUrl : [`${process.env.HOST}/images/${product.Images[0].name}`, `http://localhost:3000/images/${product.Images[1].name}`],
+                    url: `${process.env.HOST}/products/detail/${product.id}`
                 })
             })
 
