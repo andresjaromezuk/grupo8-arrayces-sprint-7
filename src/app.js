@@ -4,11 +4,16 @@ const path= require ('path')
 const session = require('express-session')
 const cookies= require('cookie-parser')
 const userLoggedMiddleware = require('./middleware/userLoggedMiddleware')
+const cors = require('cors')
 
 //requerimos nuestras rutas 
 const mainRoutes= require("./routes/mainRoutes")
 const productRoutes= require("./routes/productRoutes")
 const userRoutes= require("./routes/userRoutes")
+
+//requerimos rutas API
+const userApiRoutes= require("./routes/API/userApiRoutes")
+const productApiRoutes= require("./routes/API/productApiRoutes")
 
 // guardamos en un constante app la funcionalidad de express()
 const app = express()
@@ -43,10 +48,17 @@ app.use(cookies())
 // habilitamos middleware de sesión
 app.use(userLoggedMiddleware)
 
+//Habilitamos Cors para uso de APIs
+app.use(cors())
+
 // habilitamos las rutas
 app.use("/", mainRoutes)
 app.use("/products", productRoutes)
 app.use("/users", userRoutes)
+
+//habilitamos rutas API 
+app.use("/api/products", productApiRoutes)
+app.use("/api/users", userApiRoutes)
 
 // definimos el puerto en el que se va a levantar el servidor con variable de entorno
 const port = process.env.PORT || 3000
