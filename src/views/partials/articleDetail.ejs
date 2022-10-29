@@ -3,11 +3,11 @@
     <div class="productDetail">
         <figure class="productImage">
             <div class="smallImages">
-                <img src="/images/<%= product.Images[0].name %>" alt="Planta" class="default">
-                <img src="/images/<%= product.Images[1].name %>" alt="Encuadre hoja">
+                <img src="/images/<%= product.Images[0]?.name %>" alt="Planta" class="default">
+                <img src="/images/<%= product.Images[1]?.name %>" alt="Encuadre hoja">
             </div>
             <div class="bigImage">
-                <img src="/images/<%= product.Images[0].name %>" alt="Planta">
+                <img src="/images/<%= product.Images[0]?.name %>" alt="Planta">
             </div>
         </figure>
         <div class="productDetailInfo">

@@ -347,16 +347,19 @@ const productController = {
                 imagesProducts.push({name: image.filename, productId: id})
             })
 
-            let imagesToDestroy = await Image.destroy({
-                where: {
-                    productId: id
-                }
-            })
+            if (imagesProducts.length > 0){
+                
+                let imagesToDestroy = await Image.destroy({
+                    where: {
+                        productId: id
+                    }
+                })
 
-            let images = await Image.bulkCreate(imagesProducts, {
-                where: {
-                    productId: id
-                }})
+                let images = await Image.bulkCreate(imagesProducts, {
+                    where: {
+                        productId: id
+                    }})
+            }
            
                 return res.redirect('/')
             
@@ -393,7 +396,7 @@ const productController = {
                 }
             })
             console.log(productToDestroy)
-            if(imagesSearched) {
+            if(imagesSearched.length > 0) {
                 console.log(imagesSearched)
                 imagesSearched.forEach( image => {
                     const filePath = path.join(__dirname, `../../public/images/${image.name}`);

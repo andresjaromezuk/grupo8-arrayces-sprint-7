@@ -1,7 +1,7 @@
 <article>
     <a href="/products/detail/<%- product.id %>"> 
         <figure>
-            <img src="/images/<%= product.Images[0].name %>" alt="image Planta" class="productImage">
+            <img src="/images/<%= product.Images[0]?.name %>" alt="image Planta" class="productImage">
             <img src="/images/<%= product.Images[1]?.name %>" alt="image Planta" class="productImageI">
             <a href="#"><span class="material-symbols-outlined" id="shopProduct">shopping_bag</span></a>
         </figure>
