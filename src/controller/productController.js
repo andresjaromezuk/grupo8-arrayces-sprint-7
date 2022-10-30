@@ -141,7 +141,7 @@ const productController = {
         const keyword1 = req.query.keyword1
         const keyword2 = req.query.keyword2
 
-        const  include = ['Type', 'Size', 'Category', 'Images', 'Fee']
+        const  include = ['Type', 'Size', 'Category', {model:Image, attributes:['id','name']}, 'Fee']
 
         console.log('Al controller llegaron estas querys:')
         console.log(req.query)
