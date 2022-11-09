@@ -4,7 +4,7 @@ window.addEventListener('load', function(){
     
     let products
 
-    fetch('http://localhost:3000/api/products/')
+    fetch('https://arrayces-sprint-7.herokuapp.com/api/products/')
     .then(res=> res.json())
     .then(info=> 
         products = info.data)
