@@ -145,6 +145,20 @@ div.shoppingBag a:link{
     color: #0f372c;
 }
 
+.cartQuantity{
+    position: absolute;
+    z-index: 16;
+    background-color: red;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 50%;
+    font-size: 12px;
+    right: 30px;
+    top: 35px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 
 /* --------------FOOTER-------------- */
 
@@ -783,11 +797,44 @@ main.cartMain {
     color:#0f372c;
 }
 
+.emptyCartForm{
+    color:#0f372c;
+    text-align: center;
+}
+
 main  form .titleCart {
     font-size: 16px; 
     margin-bottom: 5px;
     margin-left: 0;
 }
+
+.emptyCart {
+    font-size: 20px; 
+    width: 100%;
+    margin-top: 160px;
+    margin-bottom: 70px;
+    text-align: center;
+}
+
+.cartIconWrapper{
+ text-align: center;
+}
+
+
+#cartIcon{
+    font-size: 70px;
+    color: gray;
+    text-align: center;
+}
+
+.articleAmountInput{
+    border: none;
+    width: 100%;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
 
 .contact label{
     font-size: 25px;
@@ -858,6 +905,21 @@ main  form .titleCart {
     border: none;
     transition: all 0.2s;
     border-radius: 50px;
+}
+
+
+
+.clearCartButton button {
+    width: 40%;
+    padding: 7px;
+    font-weight: bold;
+    background-color:#0f372c;
+    color: #fff;
+    border: none;
+    transition: all 0.2s;
+    border-radius: 50px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .cartButton button:hover {
@@ -1636,6 +1698,11 @@ main.userProfile{
         width: 95%;
     }
 
+    .cartQuantity{
+        right: 40px;
+        top: 50px; 
+    }
+
 
     /* --------------FOOTER-------------- */
 
@@ -1881,6 +1948,13 @@ main.userProfile{
         margin-top: 130px;
     }
 
+    .emptyCart {
+        margin-top: 220px;
+        margin-bottom: 90px;
+        
+    }
+
+
 }
 
 
@@ -1900,6 +1974,13 @@ main.userProfile{
         margin-bottom: 20px;
         
     }
+
+    .cartQuantity{
+        right: 65px;
+        top: 60px; 
+    }
+
+    
 
     /* --------------ALL PRODUCTS-------------- */
 
@@ -1962,7 +2043,7 @@ main.userProfile{
         justify-content: space-between;
         margin-left: 65px;
         margin-right: 65px;
-        margin-top: 120px;
+        margin-top: 140px;
         margin-bottom: 35px;
     }
 
@@ -1984,10 +2065,26 @@ main.userProfile{
 
     .cartProducts{
         width: 350px;
+        margin-right: 20px
     }
 
     .cartArticleImg img{
         width: 100px;
+    }
+
+    .clearCartButton{
+        text-align: right;
+    }
+    .clearCartButton button{
+        width: 40%;
+    }
+
+    .emptyCart {
+        font-size: 32px; 
+    }
+    
+    #cartIcon{
+        font-size: 100px;
     }
 
 
@@ -2154,6 +2251,12 @@ main.userProfile{
         max-width: 270px;
         text-align: right;
         margin-right: 40px;
+        position: relative
+    }
+
+    .cartQuantity{
+        right: 15px;
+        top: 25px;
     }
 
     div.shoppingBag span{
@@ -2415,6 +2518,18 @@ main.userProfile{
         width: 40%;
     }
 
+    .quantityProductDetail{
+        width: 100%;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .quantityProductDetail:focus{
+        border: none;
+    }
+
     /* Botones del admin */
 
     div.adminButtons form{
@@ -2437,6 +2552,15 @@ main.userProfile{
 
     .cartButton button {
         width: 40%;
+    }
+
+    .cartProducts{
+        margin-right: 100px;
+    }
+
+
+    #cartIcon{
+        font-size: 160px;
     }
 
 
@@ -2566,6 +2690,8 @@ main.userProfile{
         margin-bottom: 25px;
     }
 
+    
+
     .contact label{
         font-size: 28px;
     }
@@ -2596,6 +2722,10 @@ main.userProfile{
         font-size: 16px;
     }
 
+    .cartForm{
+        margin-right: 60px;
+    }
+
     .cartForm p{
         font-size: 14px;
     }
@@ -2603,6 +2733,11 @@ main.userProfile{
     .cartButton button {
         width: 30%;
         font-size: 18px;
+    }
+
+    .clearCartButton button{
+        width: 30%;
+        font-size: 12px;
     }
 
     div.viewMore{
@@ -2615,6 +2750,7 @@ main.userProfile{
 
     .cartProducts{
         width: 550px;
+        margin-right: 40px;
     }
 
     .cartArticleImg figure img{
@@ -2642,15 +2778,26 @@ main.userProfile{
 
     .articleAmount {
         width: 120px; 
-        margin-top: 5px
+        margin-top: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
-    .articleAmount span{
+    /* .articleAmount span{
         font-size: 18px;
-    }
+    } */
 
     .articleAmount i{
         font-size: 12px;
+    }
+
+    .articleAmountButton{
+        border: none;
+        background-color: #fff;
+    }
+
+    .articleAmountInput{
+        font-size: 16px;
     }
 
     .trash i{
@@ -2862,6 +3009,13 @@ main.userProfile{
 /* --------------MEDIA QUERY MIN-WIDTH 1700px-------------- */
 
 @media (min-width: 1700px){
+
+    /* --------------CARRITO-------------- */
+
+    .cartProducts{
+        margin-right: 90px;
+    }
+
 
     /* --------------FOOTER-------------- */
 

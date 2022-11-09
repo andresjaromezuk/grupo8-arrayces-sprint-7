@@ -13,6 +13,7 @@
         <div class="productDetailInfo">
             <h3 class="productDetailTitle"><%= product.name %></h3>
             <p class="productDetailPrice">$<%= product.price %></p>
+            <input type="text" id="cartInput" hidden value="<%= product.id %>">
             <div class="payment">
                 <% if (product.Fee.number > 1) { %>
                     <p class="fee">
@@ -37,13 +38,12 @@
                 <div class="amount">
                     <p>Cantidad</p>
                     <div class="productDetailAmount">
-                        <i class="fas fa-minus" id="minus"></i>
-                        <span> 1 </span>
-                        <i class="fas fa-plus" id="plus"></i>
+                        <span id="quantityProductDetailHidden" hidden><%= product.id %></span>
+                        <span id="quantityProductDetail"></span>
                     </div> 
                 </div>
                 <div class="productDetailButton">
-                    <a href="/users/cart"><button type="submit">  AGREGAR AL CARRITO  </button></a>
+                    <button type="submit" id="cartButtonDetail">  AGREGAR AL CARRITO  </button>
                 </div>
                 <div class="productDetailDelivery">
                     <select name="productDetailDelivery">

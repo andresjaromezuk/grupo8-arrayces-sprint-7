@@ -10,6 +10,8 @@ window.addEventListener('load', function(){
         const file = e.target.files[0]
         const img = URL.createObjectURL(file)
 
+        console.log(img)
+
         if(RegExpAvatar.exec(avatar.value)){
 
             avatarPreview.src = img

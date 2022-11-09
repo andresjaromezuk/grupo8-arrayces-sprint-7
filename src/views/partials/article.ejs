@@ -7,6 +7,7 @@
         </figure>
         <div class="description"> 
             <h3 class="name"><%= product.name %></h3>
+            <input type="text" id="cartInput" hidden value="<%= product.id %>">
             <p class="price">$ <%= product.price %></p>
             <% if (product.Fee.number > 1) { %>
                 <p class="fee">

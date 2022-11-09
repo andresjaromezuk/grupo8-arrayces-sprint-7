@@ -30,7 +30,8 @@ const productApiController = {
             products.forEach(product =>{
                  data.push({
                     product,
-                    url: `${process.env.HOST}/products/detail/${product.id}`
+                    url: `${process.env.HOST}/products/detail/${product.id}`,
+                    urlImg: `${process.env.HOST}/images/${product.Images[0].name}`
                 })
             })
             

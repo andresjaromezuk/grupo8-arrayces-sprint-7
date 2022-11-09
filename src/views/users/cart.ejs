@@ -6,17 +6,30 @@
 <body>
 
    <%- include('../partials/header.ejs') %> 
-
+   
+   <span id="emptyCart"></span>
+   
     <main class="cartMain">
 
-        <%- include('../partials/cartForm.ejs')%>
+        
+        
+        <span id="showCartForm"></span>
 
-        <%- include('../partials/cartProduct.ejs')%>
+        
+        <section class="cartProducts">
+            
+            <span id="showProductCart"></span>
+            
+            <span  id="showProductTotal"></span>
+             
+        </section>
         
     </main>
 
     <%- include('../partials/footer.ejs') %> 
 
     <script src="/js/header.js"> </script>
+    <script src="/js/cart/showCart.js"> </script>
+    <script src="/js/cart/showCartIndex.js"></script>
 </body>
 </html>
