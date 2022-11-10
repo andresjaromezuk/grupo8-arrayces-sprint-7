@@ -4,6 +4,8 @@ const productApiController = require('../../controller/API/productApiController'
 
 router.get('/', productApiController.list)
 
+router.get('/list', productApiController.listWithPage)
+
 router.get('/filter', productApiController.filter)
 
 router.get('/search', productApiController.search)

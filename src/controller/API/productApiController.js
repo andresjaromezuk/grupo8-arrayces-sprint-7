@@ -4,7 +4,86 @@ const {Product, Image, Type, Size, Category, Fee} = require('../../database/mode
 const db = require('../../database/models') 
 const Op = db.Sequelize.Op
 
+const getPagination = (page, size) => {
+    const limit = size ? size : 4
+    const offset = page ? page * limit : 0
+
+    return { limit, offset }
+}
+
+const getDataPagination = (productsRow, page, limit) =>{
+    /* let {count: total, rows: products} = productsRow */
+    let total = productsRow.count / 2
+    let rows = productsRow.rows
+    let currentPage = page ? page : 0
+    const totalPages = Math.ceil(total / limit) 
+
+    let products = []
+
+    //Creamos el array de productos y le agregamos la url del detalle y url de 
+    //la imagen
+
+    rows.forEach(product =>{
+        products.push({
+           product,
+           url: `${process.env.HOST}/products/detail/${product.id}`,
+           urlImg: `${process.env.HOST}/images/${product.Images[0].name}`
+       })
+   })
+
+    return {products, total, currentPage, totalPages}
+}
+
 const productApiController = { 
+
+    listWithPage: async (req, res) =>{
+
+        const {page, size} = req.query
+
+        const {limit, offset} = getPagination(page, size)
+
+        const  include = [
+                            {model: Type, attributes:['name']}, 
+                            {model: Size, attributes:['name']}, 
+                            {model: Category, attributes:['name']}, 
+                            {model: Image, attributes:['name']}, 
+                            {model: Fee, attributes:['number']}, 
+                        ]
+
+        let meta={status:'success', length:0}
+
+        try {
+            let productsRow = await Product.findAndCountAll(
+                {
+                include,
+                attributes:['id', 'name', 'price', 'description'],
+                limit,
+                offset
+                })
+
+            let plantas = await Product.findAll({where: {typeId: 1}, include})
+            let macetas = await Product.findAll({where: {typeId: 2}, include})
+            let cuidados = await Product.findAll({where: {typeId: 3}, include})
+            let categories = await Type.findAll()
+
+            meta.length = productsRow.count/2
+            meta.plantasLength = plantas.length
+            meta.macetasLength = macetas.length
+            meta.cuidadosLength = cuidados.length
+            meta.categoriesLength = categories.length
+
+            let data = getDataPagination(productsRow, page, limit)
+            
+
+            //Contenido de data {products, total, currentPage, totalPages}
+            
+            
+            res.status(200).json({meta, data}) 
+        } catch (error) {
+            res.status(500).json({ error: error.message })
+        } 
+
+    },
 
 	list: async  (req, res) => {
 
@@ -100,7 +179,7 @@ const productApiController = {
         try {  
             const  include = ['Type', 'Size', 'Category', 'Images', 'Fee']
 
-            let meta={status:'success', length:0}
+            let meta = {status:'success', length:0}
 
             let products = await Product.findAndCountAll({
                 include,
