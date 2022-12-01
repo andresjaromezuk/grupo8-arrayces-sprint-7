@@ -11,11 +11,11 @@ const getPagination = (page, size) => {
     return { limit, offset }
 }
 
-const getDataPagination = (productsRow, page, limit) =>{
+const getDataPagination = (productsRow, types, sizes, categories, fees, page, limit) =>{
     /* let {count: total, rows: products} = productsRow */
-    let total = productsRow.count / 2
+    let total = productsRow.count 
     let rows = productsRow.rows
-    let currentPage = page ? page : 0
+    let currentPage = page ? Number(page) : 0
     const totalPages = Math.ceil(total / limit) 
 
     let products = []
@@ -25,13 +25,20 @@ const getDataPagination = (productsRow, page, limit) =>{
 
     rows.forEach(product =>{
         products.push({
-           product,
+           id: product.id,
+           name: product.name,
+           description: product.description,
+           price: product.price,
+           type: {id: product.Type.id, name: product.Type.name},
+           category: {id: product.Category.id, name: product.Category.name},
+           fees:{id: product.Fee.id, number: product.Fee.number},
+           size:{id: product.Size.id, name: product.Size.name},
            url: `${process.env.HOST}/products/detail/${product.id}`,
            urlImg: `${process.env.HOST}/images/${product.Images[0].name}`
        })
    })
 
-    return {products, total, currentPage, totalPages}
+    return {products, types, sizes, categories, fees, total, currentPage, totalPages}
 }
 
 const productApiController = { 
@@ -43,11 +50,11 @@ const productApiController = {
         const {limit, offset} = getPagination(page, size)
 
         const  include = [
-                            {model: Type, attributes:['name']}, 
-                            {model: Size, attributes:['name']}, 
-                            {model: Category, attributes:['name']}, 
+                            {model: Type, attributes:['id','name']}, 
+                            {model: Size, attributes:['id','name']}, 
+                            {model: Category, attributes:['id','name']}, 
                             {model: Image, attributes:['name']}, 
-                            {model: Fee, attributes:['number']}, 
+                            {model: Fee, attributes:['id','number']}, 
                         ]
 
         let meta={status:'success', length:0}
@@ -60,19 +67,23 @@ const productApiController = {
                 limit,
                 offset
                 })
-
-            let plantas = await Product.findAll({where: {typeId: 1}, include})
-            let macetas = await Product.findAll({where: {typeId: 2}, include})
-            let cuidados = await Product.findAll({where: {typeId: 3}, include})
-            let categories = await Type.findAll()
-
-            meta.length = productsRow.count/2
+            
+                
+                let plantas = await Product.findAll({where: {typeId: 1}, include})
+                let macetas = await Product.findAll({where: {typeId: 2}, include})
+                let cuidados = await Product.findAll({where: {typeId: 3}, include})
+                let categories = await Category.findAll()
+                let types = await Type.findAll()
+                let sizes = await Size.findAll()
+                let fees = await Fee.findAll()
+                
+            meta.length = productsRow.count
             meta.plantasLength = plantas.length
             meta.macetasLength = macetas.length
             meta.cuidadosLength = cuidados.length
-            meta.categoriesLength = categories.length
+            meta.categoriesLength = types.length
 
-            let data = getDataPagination(productsRow, page, limit)
+            let data = getDataPagination(productsRow, types, sizes, categories, fees, page, limit)
             
 
             //Contenido de data {products, total, currentPage, totalPages}
@@ -85,9 +96,30 @@ const productApiController = {
 
     },
 
+    storeImage: async (req,res) =>{
+
+        let files = req.files
+        
+        try {
+            
+            let imagesProducts = [];
+
+            files.forEach(image => {
+                imagesProducts.push({name: image.filename, productId: newProduct.id})
+            })
+
+            let images = await Image.bulkCreate(imagesProducts)
+
+            return res.json({status:200, message: 'Imagen guardada existosamente'})
+        } catch (error) {
+             res.json(error.msg)
+        }
+
+    },
+
 	list: async  (req, res) => {
 
-        const  include = ['Type', 'Size', 'Category', 'Images', 'Fee']
+        const  include = ['Type', 'Size', 'Category', /* 'Images', */ 'Fee']
 
         let meta={status:'success', length:0}
 
@@ -110,7 +142,7 @@ const productApiController = {
                  data.push({
                     product,
                     url: `${process.env.HOST}/products/detail/${product.id}`,
-                    urlImg: `${process.env.HOST}/images/${product.Images[0].name}`
+                    /* urlImg: `${process.env.HOST}/images/${product.Images[0].name}` */
                 })
             })
             
@@ -429,6 +461,97 @@ const productApiController = {
                res.json(error) 
             }
 
+        }
+    },
+
+    store: async (req, res) => {
+        
+        let files = req.files
+
+        let {name, description, type, size, price, fees, category} = req.body
+
+
+        let objAux={
+            name: name,
+            description: description,
+            typeId: type,
+            sizeId: size,
+            price: price,
+            feeId: fees,
+            categoryId: category,
+            stock: null,
+            stockMin: null,
+            stockMax: null,
+        }
+
+        console.log(objAux)
+
+        try {
+            let newProduct = await Product.create(objAux)
+
+            let imagesProducts = [];
+
+            files.forEach(image => {
+                imagesProducts.push({name: image.filename, productId: newProduct.id})
+            })
+
+            let images = await Image.bulkCreate(imagesProducts)
+
+             return res.json({status:200, message: 'Producto guardado existosamente'})
+        } catch (error) {
+             res.json(error.msg)
+        }
+	},
+    
+    destroy: async (req, res) => {
+		let id = Number(req.params.id);
+
+        try {
+
+            /* let imagesSearched = await Image.findAll({
+                where: {
+                    productId: id
+                }
+            })
+
+            console.log('llegaron estas imágenes:')
+            console.log(imagesSearched)
+
+            let imagesToDestroy = await Image.destroy({
+                where: {
+                    productId: id
+                }
+            })
+
+            console.log(imagesToDestroy) */
+
+            let productToDestroy = await Product.destroy({
+                where: {
+                    id: id
+                }
+            })
+            /* console.log(productToDestroy)
+            if(imagesSearched.length > 0) {
+                console.log(imagesSearched)
+                imagesSearched.forEach( image => {
+                    const filePath = path.join(__dirname, `../../public/images/${image.name}`);
+                    fs.unlinkSync(filePath)
+                })
+            
+            } */
+
+            let meta = {
+                status: 200,
+                message: 'Producto eliminado con éxito'
+            }
+            
+            let data={
+                productDeleted: productToDestroy
+            }
+
+            return res.json({meta, data})
+        } catch (error) {
+            res.json(error)
         }
     }
 }
